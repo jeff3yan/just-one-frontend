@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Game from './routes/game';
+import Home from './routes/home';
+import socket from './socket';
 
 function App() {
+  const [nickname, setNickname] = useState<string | null>(null);
+
+  useEffect(() => {
+    socket.connect();
+
+    // Listen for the 'assign-nickname' event
+    socket.on('assign-nickname', (data: { nickname: string }) => {
+      console.log(`Received nickname: ${data.nickname}`);
+      setNickname(data.nickname);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <h1>Welcome to Just One Game</h1>
+        {nickname ? (
+          <h2>Your Nickname: {nickname}</h2>
+        ) : (
+          <p>Loading your nickname...</p>
+        )}
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/game/:gameId" element={<Game />} />
+      </Routes>
+    </Router>
   );
 }
 
