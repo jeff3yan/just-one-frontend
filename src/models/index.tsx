@@ -1,7 +1,7 @@
 export interface Game {
   id: string;
   name: string;
-  status: string;
+  status: 'created' | 'started' | 'completed';
   created_at: string;
 }
 

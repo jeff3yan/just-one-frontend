@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
 
   // Navigate to the selected game
-  const joinGame = (gameId: string) => {
+  const openGame = (gameId: string) => {
     navigate(`/game/${gameId}`);
   };
 
@@ -67,7 +67,7 @@ const Home = () => {
             games.map((game) => (
               <li
                 key={game.id}
-                onClick={() => joinGame(game.id)}
+                onClick={() => openGame(game.id)}
                 style={{ cursor: 'pointer' }}
               >
                 {game.id} - {game.status}
