@@ -3,10 +3,11 @@ import { useGame } from '../../common/Context';
 import { PlayerList } from './components/PlayerList';
 import { RoundSelector } from './components/RoundSelector';
 import { GameControls } from './components/GameControls';
+import { useStartGame } from './hooks/useStartGame';
 
 const CreatedGame = () => {
   const { gameData } = useGame();
-  const [numRounds, setNumRounds] = React.useState(1);
+  const [numRounds, setNumRounds] = React.useState(3); // Default to 3 rounds
 
   return (
     <div>

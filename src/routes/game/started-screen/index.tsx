@@ -1,6 +1,5 @@
 // StartedGame.tsx
 import React from 'react';
-import { sortByRank } from '../../../utils/sort';
 import { getOrCreateSessionId } from '../../../utils/session';
 import { Player } from '../../../models';
 import { useGame } from '../../common/Context';
@@ -19,12 +18,14 @@ const StartedGame = () => {
 
       <h3>Players:</h3>
       <ul>
-        {gameData.players.sort(sortByRank).map((player: Player) => (
-          <li key={player.id}>
-            #{player.rank} - {player.nickname}{' '}
-            {player.session_id === getOrCreateSessionId() ? '(you)' : null}
-          </li>
-        ))}
+        {gameData.players
+          .sort((a, b) => a.turn_order - b.turn_order)
+          .map((player: Player) => (
+            <li key={player.id}>
+              #{player.rank} - {player.nickname}{' '}
+              {player.session_id === getOrCreateSessionId() ? '(you)' : null}
+            </li>
+          ))}
       </ul>
     </div>
   );

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import socket from '../../socket';
 import { useGame } from '../common/Context';
 

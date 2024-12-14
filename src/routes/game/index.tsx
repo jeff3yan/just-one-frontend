@@ -16,7 +16,12 @@ const GameComponent = () => {
     socket.on('game-data-updated', (gameData) => {
       setGameData(gameData);
     });
-  });
+
+    // Clean up the listener when component unmounts
+    return () => {
+      socket.off('game-data-updated');
+    };
+  }, []);
 
   useEffect(() => {
     if (gameId) {

@@ -10,6 +10,7 @@ export interface Player {
   nickname: string;
   rank: string;
   session_id: string;
+  turn_order: number;
 }
 
 export interface GameData {
